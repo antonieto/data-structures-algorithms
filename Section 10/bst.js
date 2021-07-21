@@ -1,61 +1,73 @@
-class Node {
-    constructor(value){
-      this.left = null;
-      this.right = null;
-      this.value = value;
-    }
+class TreeNode{ 
+  constructor(value) { 
+      this.right = null; 
+      this.left = null; 
+      this.value = value; 
   }
-  
-  class BinarySearchTree {
-    constructor(){
-      this.root = null;
-    }
-    insert(value){
-      //Code here 
+} 
 
-      const newNode = new Node(value);
-      if(this.root === null) { 
-          this.root = newNode; 
+class BinarySearchTree { 
+  constructor() { 
+      this.root = null; 
+  }  
+
+  insert( value ) {  
+
+      const node = new TreeNode(value); 
+      if( this.root == null ) { 
+          this.root = node; 
           return this;
-      }
-    //Traverse to parent node 
-      let iterator = this.root; 
-      while(true) { 
-        
-        if(value > iterator.value) { 
-            if(iterator.right == null) { 
-                iterator.right = newNode; 
-                return this; 
-            } 
-            iterator = iterator.right;
-        } else { 
-            if(iterator.left == null) { 
-                iterator.left = newNode; 
-                return  this;
-            } 
-            iterator = iterator.left;
-        } 
-      }  
-
-
-    }
-    lookup(value){
-      //Code here 
-      let currentNode = this.root;
-      while(currentNode !== null) { 
-        if(currentNode.value === value) { 
-            return currentNode;
-        } 
-        if(value > currentNode.value) { 
-            currentNode = currentNode.right;
-        } else { 
-            currentNode = currentNode.left;
-        } 
       } 
-      return null; 
-    }
-    // remove
+      let iterator = this.root;
+      
+      if( this.lookup(value) != null ){ 
+          return this;
+      } 
+
+      while( true ) { 
+          if(value > iterator.value ) { 
+              if( !iterator.right ) { 
+                  iterator.right = node; 
+                  return this;
+              } 
+              iterator = iterator.right;
+          } else { 
+              if( !iterator.left ) { 
+                  iterator.left = node;
+                  return this;
+              } 
+              iterator = iterator.left;
+          }
+      } 
+  }  
+
+  lookup( value  ){ 
+      
+      let iterator = this.root; 
+
+      if( value === iterator.value ) { 
+          return { target: iterator, parent: null };
+      }
+
+      while( iterator != null) { 
+          const parentNode = iterator; 
+
+          if( value > iterator.value ) { 
+              iterator = iterator.right;
+          } else { 
+              iterator = iterator.left;
+          }
+
+          if( iterator != null) { 
+              if(iterator.value === value ) { 
+                  return { target: iterator, parent: parentNode};
+              }
+          }
+      }
+      return null;
+
   }
+} 
   
   const tree = new BinarySearchTree();
 tree.insert(9)
