@@ -17,7 +17,6 @@ class Graph {
             return null;
         } 
         
-
         //undirected Graph  
         const list1 = this.adjacentList[node1];
         const list2 = this.adjacentList[node2]; 
